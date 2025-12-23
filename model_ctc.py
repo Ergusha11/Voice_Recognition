@@ -12,8 +12,14 @@ class CTCSpeechModel(nn.Module):
         self.bidirectional = True
         
         # LSTM
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, 
-                            batch_first=True, bidirectional=self.bidirectional)
+        self.lstm = nn.LSTM(
+                input_size, 
+                hidden_size, 
+                num_layers, 
+                batch_first=True, 
+                bidirectional=self.bidirectional,
+                dropout=0.2 if num_layers > 1 else 0
+                )
         
         # Output layer
         # Maps hidden state to character probabilities

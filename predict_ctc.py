@@ -5,11 +5,12 @@ import sys
 import os
 from model_ctc import CTCSpeechModel
 from vocabulary import Vocabulary
+import preprocessing_ctc
 
 # Configuration
-INPUT_SIZE = 64
-HIDDEN_SIZE = 128
-NUM_LAYERS = 2
+INPUT_SIZE = 13
+HIDDEN_SIZE = 30
+NUM_LAYERS = 1
 MODEL_PATH = 'ctc_phrase_model.pth'
 
 def predict_phrase(audio_path):
@@ -30,17 +31,11 @@ def predict_phrase(audio_path):
 
     # 2. Process Audio
     try:
-        y, sr = librosa.load(audio_path, sr=None)
+        # Use centralized methodology pipeline
+        features = preprocessing_ctc.preprocess_pipeline(audio_path)
         
-        # Mel Spectrogram (same parameters as training)
-        mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=INPUT_SIZE, n_fft=2048, hop_length=512)
-        mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
-        
-        # Transpose to (Time, n_mels)
-        mel_spec_db = mel_spec_db.T
-        
-        # Add batch dimension: (1, Time, n_mels)
-        input_tensor = torch.tensor(mel_spec_db, dtype=torch.float32).unsqueeze(0).to(device)
+        # Add batch dimension: (1, Time, n_mfcc)
+        input_tensor = features.unsqueeze(0).to(device)
 
     except Exception as e:
         print(f"Error processing audio: {e}")
