@@ -10,7 +10,7 @@ import preprocessing_ctc
 # Configuration
 INPUT_SIZE = 13
 HIDDEN_SIZE = 30
-NUM_LAYERS = 1
+NUM_LAYERS = 2
 MODEL_PATH = 'ctc_phrase_model.pth'
 
 def predict_phrase(audio_path):

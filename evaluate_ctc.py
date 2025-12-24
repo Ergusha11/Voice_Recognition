@@ -32,7 +32,7 @@ def wer(reference, hypothesis):
 # Configuración
 INPUT_SIZE = 13
 HIDDEN_SIZE = 30
-NUM_LAYERS = 1
+NUM_LAYERS = 2
 BATCH_SIZE = 1
 AUDIO_DIR = 'synthetic_phrases_test' # Usaremos el set de prueba independiente
 MODEL_PATH = 'ctc_phrase_model.pth'

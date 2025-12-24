@@ -12,10 +12,10 @@ import numpy as np
 # Hyperparameters
 INPUT_SIZE = 13     # MFCC features
 HIDDEN_SIZE = 30
-NUM_LAYERS = 1
+NUM_LAYERS = 2
 NUM_EPOCHS = 120
 BATCH_SIZE = 12
-LEARNING_RATE = 0.0018
+LEARNING_RATE = 0.0016
 AUDIO_DIR = 'synthetic_phrases'
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
